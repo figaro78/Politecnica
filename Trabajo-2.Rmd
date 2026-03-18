@@ -1,5 +1,6 @@
 ---
-title: "Tranajo-2"
+title: "Trabajo-2"
 output: html_document
 ---
 
+Prueba
