@@ -1,0 +1,296 @@
+# Parte 1 — Data Science
+
+## Pregunta 1
+
+### 1)
+
+**Clasificación:** Descriptiva.
+
+**Justificación:**\
+Esta pregunta busca resumir y describir las características de un conjunto de datos ya observado. Se pretende conocer cuántos vehículos existen por tipo, cuál es el tipo más frecuente y de qué países provienen. No se intenta predecir comportamientos futuros ni establecer relaciones causales, sino únicamente describir la distribución de los datos.
+
+### 2)
+
+**Clasificación:** Exploratoria.
+
+**Justificación:**\
+El objetivo es descubrir posibles patrones o relaciones entre variables del conjunto de datos, concretamente entre el rango de edad de los usuarios y sus preferencias de género en el servicio de video bajo demanda. Este tipo de análisis busca identificar tendencias o asociaciones sin formular todavía un modelo predictivo o inferir causalidad.
+
+### 3)
+
+**Clasificación:** Predictiva.
+
+**Justificación:**\
+La pregunta pretende determinar si las peticiones futuras provenientes de una red concreta seguirán presentando errores y si este comportamiento podría aparecer también en otras redes. Por lo tanto, el objetivo es anticipar eventos futuros a partir de patrones detectados en datos históricos, lo cual corresponde a un análisis predictivo.
+
+### 4)
+
+**Clasificación:** Predictiva.
+
+**Justificación:**\
+Se busca determinar si un usuario puede ser asignado a uno o varios grupos basándose en su historial de compras. Este tipo de problema corresponde a una tarea de clasificación, donde el sistema utiliza datos existentes para predecir a qué grupo pertenece una nueva observación.
+
+## Pregunta 2
+
+En este escenario se sospecha que un usuario de la red empresarial ha expuesto un servicio web no autorizado hacia Internet. Se dispone de registros de conexiones TCP salientes de cada equipo de la red corporativa, pero no se desea realizar un escaneo de puertos en cada ordenador. El objetivo es utilizar técnicas de **Data Science** para reducir la lista de posibles responsables.
+
+### a) Obtención de los datos
+
+Los datos necesarios para el análisis podrían obtenerse de diferentes fuentes dentro de la infraestructura de red:
+
+-   registros de conexiones TCP salientes de cada equipo corporativo
+-   logs del firewall o proxy de la organización
+-   registros de sistemas de monitorización de red
+-   inventario de equipos y usuarios de la red corporativa
+-   listas de servicios autorizados o entornos de pruebas
+
+Los registros de red deberían incluir información como:
+
+-   dirección IP interna del equipo
+-   usuario asociado al equipo
+-   dirección IP de destino
+-   puerto de destino
+-   fecha y hora de la conexión
+-   número de conexiones realizadas
+-   volumen de datos transmitidos
+
+Esta información permitiría identificar patrones de comportamiento en las conexiones de los equipos.
+
+### b) Tratamiento de los datos
+
+Una vez obtenidos los datos, sería necesario realizar una fase de preparación que incluya:
+
+-   eliminación de registros duplicados
+-   corrección de formatos de fecha y hora
+-   filtrado de conexiones internas que no salen de la red
+-   eliminación de registros incompletos
+-   normalización de nombres de usuarios o equipos
+
+También sería útil enriquecer los datos con información adicional, como:
+
+-   clasificación de puertos conocidos (por ejemplo 80, 443, 8080)
+-   geolocalización de las direcciones IP externas
+-   identificación de servicios autorizados dentro de la empresa
+
+El objetivo de esta fase es garantizar que los datos sean consistentes y adecuados para el análisis posterior.
+
+### c) Preguntas de análisis
+
+Algunas preguntas que podrían ayudar a reducir la lista de sospechosos son:
+
+-   ¿Qué equipos realizan un número inusualmente alto de conexiones salientes hacia puertos web?
+-   ¿Qué usuarios mantienen conexiones recurrentes hacia los mismos destinos externos?
+-   ¿Existen equipos que reciben muchas conexiones externas a través de conexiones previamente establecidas?
+-   ¿Qué conexiones se producen fuera del horario laboral habitual?
+-   ¿Qué equipos presentan patrones de tráfico diferentes al comportamiento general de la red?
+
+Estas preguntas permiten identificar comportamientos anómalos que podrían indicar la presencia de un servicio web expuesto.
+
+### d) Análisis y técnicas de Data Science
+
+El análisis podría comenzar con técnicas descriptivas y exploratorias para entender el comportamiento normal de la red. Por ejemplo:
+
+-   número de conexiones salientes por equipo
+-   puertos más utilizados
+-   destinos externos más frecuentes
+-   distribución de conexiones a lo largo del tiempo
+
+Posteriormente podrían aplicarse técnicas más analíticas, como:
+
+-   detección de anomalías para identificar equipos cuyo patrón de conexiones difiere significativamente del resto
+-   clustering para agrupar equipos con comportamientos similares
+-   creación de métricas de riesgo basadas en el número de conexiones externas, frecuencia y persistencia
+
+Este enfoque permitiría identificar un conjunto reducido de equipos cuyo comportamiento es más compatible con la exposición de un servicio web.
+
+### e) Datos y gráficos a obtener
+
+Para facilitar el análisis y la interpretación de resultados podrían generarse:
+
+-   tablas con el número de conexiones salientes por equipo
+-   gráficos de barras con los puertos de destino más utilizados
+-   histogramas de conexiones por hora del día
+-   gráficos de dispersión entre número de conexiones y número de destinos externos
+-   rankings de equipos con mayor actividad externa
+
+Estos gráficos permitirían detectar rápidamente comportamientos fuera de lo común.
+
+### f) Comunicación de resultados
+
+Los resultados del análisis deberían comunicarse mediante un informe claro que incluya:
+
+-   descripción del problema analizado
+-   fuentes de datos utilizadas
+-   metodología aplicada
+-   gráficos y tablas con los resultados obtenidos
+
+# 2. Introducción a R
+
+---
+title: "Trabajo 2"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(readr)
+```
+
+## Pregunta 1
+
+Para responder esta pregunta, en primer lugar se procedió a cargar el dataset a partir del fichero `epa-http.csv`. Para ello, se utilizó la función `read_table()` de la librería `readr`, indicando que el archivo no contiene nombres de columnas.
+
+```{r carga-datos, echo=TRUE}
+epa_http <- read_table("epa-http.csv", col_names = FALSE)
+```
+
+Una vez cargado el dataset, se asignaron nombres descriptivos a cada una de las columnas, con el fin de identificar correctamente las variables correspondientes a la IP, el timestamp, el tipo de petición, la URL, el protocolo, el código de respuesta y los bytes transferidos.
+
+```{r renombrar-columnas, echo=TRUE}
+colnames(epa_http) <- c("IP", "Timestamp", "Tipo", "URL", "Protocolo", "Codigo", "Bytes")
+```
+
+Posteriormente, se realizó una limpieza básica de los datos. En concreto, se eliminaron las comillas en las columnas `Tipo` y `Protocolo`, así como los corchetes en la columna `Timestamp`, ya que estos caracteres no aportan valor al análisis y dificultan el tratamiento de los datos.
+
+```{r limpieza-texto, echo=TRUE}
+epa_http$Tipo <- gsub('"', '', epa_http$Tipo)
+epa_http$Protocolo <- gsub('"', '', epa_http$Protocolo)
+epa_http$Timestamp <- gsub("\\[|\\]", "", epa_http$Timestamp)
+```
+
+Adicionalmente, se procesó la columna `Bytes`, ya que contenía valores representados con el símbolo `-`, lo cual indica ausencia de datos. Estos valores fueron reemplazados por `NA`, y posteriormente la columna fue convertida a tipo numérico para permitir el cálculo de estadísticas como la media.
+
+```{r limpieza-bytes, echo=TRUE}
+epa_http$Bytes[epa_http$Bytes == "-"] <- NA
+epa_http$Bytes <- as.numeric(epa_http$Bytes)
+```
+
+Finalmente, se procedió a calcular las dimensiones del dataset y el valor medio de la columna `Bytes`.
+
+Como resultado, el dataset contiene **`r nrow(epa_http)` filas** y **`r ncol(epa_http)` columnas**.
+
+Asimismo, el valor medio de la columna Bytes es **`r round(mean(epa_http$Bytes, na.rm = TRUE), 2)`**.
+
+```{r verificacion, echo=TRUE}
+dim(epa_http)
+mean(epa_http$Bytes, na.rm = TRUE)
+```
+
+## Pregunta 2
+
+Para responder esta pregunta, se tomó la columna `IP`, que contiene los orígenes de las peticiones al servidor. A continuación, se identificaron únicamente los valores distintos, ya que la consigna solicita analizar las diferentes IPs de origen y no el número total de peticiones.
+
+```{r pregunta2-unicas, echo=TRUE}
+ips_unicas <- unique(epa_http$IP)
+```
+
+Posteriormente, se filtraron aquellos registros cuyo valor contiene la cadena `.edu`, ya que este patrón permite identificar orígenes claramente educativos.
+
+```{r pregunta2-filtrado, echo=TRUE}
+ips_edu <- ips_unicas[grepl("\\.edu", ips_unicas)]
+```
+
+Finalmente, se contó el número total de IPs o hosts distintos que cumplen esta condición.
+
+Como resultado, el número de orígenes diferentes con dominio educativo es **`r length(ips_edu)`**.
+
+```{r pregunta2-resultado, echo=TRUE}
+length(ips_edu)
+```
+## Pregunta 3
+
+Para determinar la hora con mayor volumen de peticiones HTTP de tipo GET, primero se procesó la columna `Timestamp`, eliminando los corchetes para facilitar su manipulación.
+
+```{r p3-limpieza}
+epa_http$Timestamp <- gsub("\\[|\\]", "", epa_http$Timestamp)
+```
+
+Posteriormente, se separó el timestamp en sus componentes (día, hora, minuto y segundo), utilizando el separador ":".
+
+```{r p3-separacion}
+partes <- strsplit(epa_http$Timestamp, ":")
+hora <- sapply(partes, function(x) x[2])
+hora <- as.numeric(hora)
+epa_http$hora <- hora
+```
+
+A continuación, se filtraron únicamente las peticiones de tipo GET.
+
+```{r p3-filtrado}
+get_data <- epa_http[epa_http$Tipo == "GET", ]
+```
+
+Luego, se contabilizó el número de peticiones por cada hora.
+
+```{r p3-conteo}
+conteo_horas <- table(get_data$hora)
+conteo_horas
+```
+
+Finalmente, se identificó la hora con mayor volumen de peticiones.
+
+```{r p3-resultado}
+hora_max <- as.numeric(names(conteo_horas)[which.max(conteo_horas)])
+hora_max
+```
+
+Como resultado, la hora con mayor número de peticiones GET es **`r hora_max`**.
+
+## Pregunta 4
+
+Para responder esta pregunta, primero se filtraron las peticiones provenientes de instituciones educativas, identificadas por contener la cadena `.edu` en la columna `IP`.
+
+```{r p4-edu}
+edu_data <- epa_http[grepl("\\.edu", epa_http$IP), ]
+```
+
+Posteriormente, se seleccionaron únicamente aquellas peticiones que corresponden a descargas de archivos de texto, identificadas por URLs que terminan en `.txt`.
+
+```{r p4-txt}
+txt_data <- edu_data[grepl("\\.txt$", edu_data$URL), ]
+```
+
+Finalmente, se calculó el total de bytes transmitidos en dichas peticiones, considerando posibles valores faltantes.
+
+```{r p4-resultado}
+total_bytes <- sum(txt_data$Bytes, na.rm = TRUE)
+total_bytes
+```
+
+Como resultado, el total de bytes transmitidos en peticiones `.txt` desde dominios educativos es **`r total_bytes`**.
+
+## Pregunta 5
+
+Para resolver esta pregunta, se utilizó la columna `URL`, previamente obtenida al separar la petición en sus componentes (Tipo, URL y Protocolo).
+
+Se filtraron aquellas peticiones cuya URL es exactamente igual a "/", lo cual representa accesos directos a la raíz del servidor.
+
+```{r p5-filtrado}
+root_requests <- epa_http[epa_http$URL == "/", ]
+```
+
+Finalmente, se contabilizó el número de dichas peticiones.
+
+```{r p5-resultado}
+nrow(root_requests)
+```
+
+Como resultado, el número de peticiones que acceden directamente a la raíz del servidor es **`r nrow(root_requests)`**.
+
+## Pregunta 6
+
+Para responder esta pregunta, se utilizó la columna `Protocolo`, previamente limpiada para eliminar comillas y espacios innecesarios.
+
+```{r p6-limpieza}
+epa_http$Protocolo <- gsub("\"", "", epa_http$Protocolo)
+epa_http$Protocolo <- trimws(epa_http$Protocolo)
+```
+
+Posteriormente, se identificaron las peticiones cuyo protocolo es diferente de "HTTP/0.2".
+
+```{r p6-calculo}
+sum(epa_http$Protocolo != "HTTP/0.2")
+```
+
+Como resultado, el número de peticiones que no utilizan el protocolo HTTP/0.2 es **`r sum(epa_http$Protocolo != "HTTP/0.2")`**.
+
+
