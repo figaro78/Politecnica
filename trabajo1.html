@@ -354,6 +354,21 @@ display: none;
 
 <div id="parte-1-data-science" class="section level1">
 <h1>Parte 1 — Data Science</h1>
+</div>
+<div id="integrantes" class="section level1">
+<h1>INTEGRANTES:</h1>
+<div id="angel-burga" class="section level3">
+<h3>Angel Burga</h3>
+</div>
+<div id="fidel-garcia" class="section level3">
+<h3>Fidel Garcia</h3>
+</div>
+<div id="ofelia-tejada" class="section level3">
+<h3>Ofelia Tejada</h3>
+</div>
+<div id="jesus-hurtado" class="section level3">
+<h3>Jesus Hurtado</h3>
+</div>
 <div id="dado-un-registro-de-vehículos-que-circulan-por-una-autopista-disponemos-de-su-marca-y-modelo-país-de-matriculación-y-tipo-de-vehículo-por-número-de-ruedas.-con-tal-de-ajustar-precios-de-los-peajes-cuántos-vehículos-tenemos-por-tipo-cuál-es-el-tipo-más-frecuente-de-qué-países-tenemos-más-vehículos" class="section level3">
 <h3>1) Dado un registro de vehículos que circulan por una autopista,
 disponemos de su marca y modelo, país de matriculación, y tipo de
@@ -631,15 +646,7 @@ día</p>
 ¿Cuantos bytes en total se han transmitido, en peticiones de descarga de
 ficheros de texto “.txt”?</h3>
 <p>El total de bytes transmitidos en peticiones de descarga de archivos
-.txt realizadas por instituciones educativas (.edu) es de r
-sum(as.numeric(ifelse(epa_http<span class="math inline">\(X7 ==
-&quot;-&quot;, NA, epa_http\)</span>X7))[grepl(“\.edu<span class="math inline">\(&quot;, epa_http\)</span>X1) &amp;
-grepl(”\.txt<span class="math inline">\(&quot;, epa_http\)</span>X4)],
-na.rm = TRUE) bytes.</p>
-<p>Para este cálculo se consideraron únicamente las peticiones cuyo host
-termina en .edu y cuyo recurso solicitado termina en .txt. Además, se
-excluyeron los valores faltantes (“-”) de la columna bytes, ya que no
-representan valores numéricos válidos.</p>
+.txt realizadas por instituciones educativas (.edu) es de</p>
 <pre class="r"><code>sum(
   as.numeric(ifelse(epa_http$X7 == &quot;-&quot;, NA, epa_http$X7))[
     grepl(&quot;\\.edu$&quot;, epa_http$X1) &amp; grepl(&quot;\\.txt$&quot;, epa_http$X4)
@@ -647,6 +654,10 @@ representan valores numéricos válidos.</p>
   na.rm = TRUE
 )</code></pre>
 <pre><code>## [1] 106806</code></pre>
+<p>Para este cálculo se consideraron únicamente las peticiones cuyo host
+termina en .edu y cuyo recurso solicitado termina en .txt. Además, se
+excluyeron los valores faltantes (“-”) de la columna bytes, ya que no
+representan valores numéricos válidos.</p>
 </div>
 </div>
 <div id="pregunta-5" class="section level2">
@@ -655,16 +666,17 @@ representan valores numéricos válidos.</p>
 <h3>Si separamos la petición en 3 partes (Tipo, URL, Protocolo), usando
 str_split y el separador ” ” (espacio), ¿cuantas peticiones buscan
 directamente la URL = “/”?</h3>
-<p>Se separó la petición en sus tres componentes (método, URL y
-protocolo) utilizando strsplit con separador espacio. Se identificaron r
-sum(sapply(strsplit(as.character(epa_http$X3), ” “), function(x) x[2])
-==”/“, na.rm = TRUE) peticiones cuya URL es exactamente /, lo que
-corresponde a accesos directos a la raíz del servidor.</p>
-<pre class="r"><code>sum(
-  sapply(strsplit(as.character(epa_http$X3), &quot; &quot;), function(x) x[2]) == &quot;/&quot;,
-  na.rm = TRUE
-)</code></pre>
-<pre><code>## [1] 0</code></pre>
+<p>Para resolver esta pregunta se separó la cadena de petición en tres
+componentes: tipo de petición, URL y protocolo, utilizando el separador
+de espacio.</p>
+<p>Posteriormente, se extrajo la URL (segunda posición) y se
+contabilizaron aquellas peticiones cuya URL es exactamente “/”.</p>
+<p>El número de peticiones dirigidas a la raíz del servidor fue de</p>
+<pre class="r"><code>peticion_completa &lt;- paste(epa_http$X3, epa_http$X4, epa_http$X5)
+peticiones &lt;- strsplit(peticion_completa, &quot; &quot;)
+url &lt;- sapply(peticiones, function(x) x[2])
+sum(url == &quot;/&quot;, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 2382</code></pre>
 </div>
 </div>
 <div id="pregunta-6" class="section level2">
@@ -672,10 +684,10 @@ corresponde a accesos directos a la raíz del servidor.</p>
 <div id="aprovechando-que-hemos-separado-la-petición-en-3-partes-tipo-url-protocolo-cuantas-peticiones-no-tienen-como-protocolo-http0.2" class="section level3">
 <h3>Aprovechando que hemos separado la petición en 3 partes (Tipo, URL,
 Protocolo) ¿Cuantas peticiones NO tienen como protocolo “HTTP/0.2”?</h3>
-<p>Se identificaron r sum(gsub(’“’,”“, epa_http$X5) !=”HTTP/0.2”, na.rm
-= TRUE) peticiones cuyo protocolo es distinto de HTTP/0.2. Para ello se
-utilizó la columna de protocolo previamente separada, eliminando
-posibles comillas para asegurar una comparación correcta.</p>
+<p>Se analizó la columna de protocolo (X5), eliminando previamente las
+comillas para asegurar una correcta comparación.</p>
+<p>Se contabilizaron las peticiones cuyo protocolo es distinto de
+“HTTP/0.2”, obteniendo un total de</p>
 <pre class="r"><code>protocolo &lt;- gsub(&#39;&quot;&#39;, &quot;&quot;, epa_http$X5)
 
 sum(protocolo != &quot;HTTP/0.2&quot;, na.rm = TRUE)</code></pre>

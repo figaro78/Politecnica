@@ -6,6 +6,12 @@ editor_options:
 
 # Parte 1 — Data Science
 
+# INTEGRANTES:
+### Angel Burga
+### Fidel Garcia
+### Ofelia Tejada
+### Jesus Hurtado
+
 ### 1) Dado un registro de vehículos que circulan por una autopista, disponemos de su marca y modelo, país de matriculación, y tipo de vehículo (por número de ruedas). Con tal de ajustar precios de los peajes, ¿Cuántos vehículos tenemos por tipo? ¿Cuál es el tipo más frecuente? ¿De qué países tenemos más vehículos?
 
 **Clasificación:** Descriptiva.
@@ -264,14 +270,7 @@ max(tabla)
 ### De las peticiones hechas por instituciones educativas (.edu), ¿Cuantos bytes en total se han transmitido, en peticiones de descarga de ficheros de texto ".txt"?
 
 El total de bytes transmitidos en peticiones de descarga de archivos
-.txt realizadas por instituciones educativas (.edu) es de r
-sum(as.numeric(ifelse(epa_http$X7 == "-", NA, epa_http$X7))[grepl("\\.edu$", epa_http$X1)
-& grepl("\\.txt$", epa_http$X4)], na.rm = TRUE) bytes.
-
-Para este cálculo se consideraron únicamente las peticiones cuyo host
-termina en .edu y cuyo recurso solicitado termina en .txt. Además, se
-excluyeron los valores faltantes ("-") de la columna bytes, ya que no
-representan valores numéricos válidos.
+.txt realizadas por instituciones educativas (.edu) es de
 
 ```{r}
 sum(
@@ -282,31 +281,38 @@ sum(
 )
 ```
 
+Para este cálculo se consideraron únicamente las peticiones cuyo host
+termina en .edu y cuyo recurso solicitado termina en .txt. Además, se
+excluyeron los valores faltantes ("-") de la columna bytes, ya que no
+representan valores numéricos válidos.
+
 ## Pregunta 5
 
 ### Si separamos la petición en 3 partes (Tipo, URL, Protocolo), usando str_split y el separador " " (espacio), ¿cuantas peticiones buscan directamente la URL = "/"?
 
-Se separó la petición en sus tres componentes (método, URL y protocolo)
-utilizando strsplit con separador espacio. Se identificaron r
-sum(sapply(strsplit(as.character(epa_http\$X3), " "), function(x) x[2])
-== "/", na.rm = TRUE) peticiones cuya URL es exactamente /, lo que
-corresponde a accesos directos a la raíz del servidor.
+Para resolver esta pregunta se separó la cadena de petición en tres
+componentes: tipo de petición, URL y protocolo, utilizando el separador
+de espacio.
+
+Posteriormente, se extrajo la URL (segunda posición) y se contabilizaron
+aquellas peticiones cuya URL es exactamente "/".
+
+El número de peticiones dirigidas a la raíz del servidor fue de
 
 ```{r}
-sum(
-  sapply(strsplit(as.character(epa_http$X3), " "), function(x) x[2]) == "/",
-  na.rm = TRUE
-)
+peticion_completa <- paste(epa_http$X3, epa_http$X4, epa_http$X5)
+peticiones <- strsplit(peticion_completa, " ")
+url <- sapply(peticiones, function(x) x[2])
+sum(url == "/", na.rm = TRUE)
 ```
 
 ## Pregunta 6
 
 ### Aprovechando que hemos separado la petición en 3 partes (Tipo, URL, Protocolo) ¿Cuantas peticiones NO tienen como protocolo "HTTP/0.2"?
 
-Se identificaron r sum(gsub('"', "", epa_http\$X5) != "HTTP/0.2", na.rm
-= TRUE) peticiones cuyo protocolo es distinto de HTTP/0.2. Para ello se
-utilizó la columna de protocolo previamente separada, eliminando
-posibles comillas para asegurar una comparación correcta.
+Se analizó la columna de protocolo (X5), eliminando previamente las comillas para asegurar una correcta comparación.
+
+Se contabilizaron las peticiones cuyo protocolo es distinto de "HTTP/0.2", obteniendo un total de
 
 ```{r}
 protocolo <- gsub('"', "", epa_http$X5)
