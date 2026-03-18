@@ -354,10 +354,12 @@ display: none;
 
 <div id="parte-1-data-science" class="section level1">
 <h1>Parte 1 — Data Science</h1>
-<div id="pregunta-1" class="section level2">
-<h2>Pregunta 1</h2>
-<div id="section" class="section level3">
-<h3>1)</h3>
+<div id="dado-un-registro-de-vehículos-que-circulan-por-una-autopista-disponemos-de-su-marca-y-modelo-país-de-matriculación-y-tipo-de-vehículo-por-número-de-ruedas.-con-tal-de-ajustar-precios-de-los-peajes-cuántos-vehículos-tenemos-por-tipo-cuál-es-el-tipo-más-frecuente-de-qué-países-tenemos-más-vehículos" class="section level3">
+<h3>1) Dado un registro de vehículos que circulan por una autopista,
+disponemos de su marca y modelo, país de matriculación, y tipo de
+vehículo (por número de ruedas). Con tal de ajustar precios de los
+peajes, ¿Cuántos vehículos tenemos por tipo? ¿Cuál es el tipo más
+frecuente? ¿De qué países tenemos más vehículos?</h3>
 <p><strong>Clasificación:</strong> Descriptiva.</p>
 <p><strong>Justificación:</strong><br />
 Esta pregunta busca resumir y describir las características de un
@@ -367,8 +369,12 @@ provienen. No se intenta predecir comportamientos futuros ni establecer
 relaciones causales, sino únicamente describir la distribución de los
 datos.</p>
 </div>
-<div id="section-1" class="section level3">
-<h3>2)</h3>
+<div id="dado-un-registro-de-visualizaciones-de-un-servicio-de-video-on-demand-donde-disponemos-de-los-datos-del-usuario-de-la-película-seleccionada-fecha-de-visualización-y-categoría-de-la-película-queremos-saber-hay-alguna-preferencia-en-cuanto-a-género-literario-según-los-usuarios-y-su-rango-de-edad" class="section level3">
+<h3>2) Dado un registro de visualizaciones de un servicio de
+video-on-demand, donde disponemos de los datos del usuario, de la
+película seleccionada, fecha de visualización y categoría de la
+película, queremos saber ¿Hay alguna preferencia en cuanto a género
+literario según los usuarios y su rango de edad?</h3>
 <p><strong>Clasificación:</strong> Exploratoria.</p>
 <p><strong>Justificación:</strong><br />
 El objetivo es descubrir posibles patrones o relaciones entre variables
@@ -378,8 +384,13 @@ demanda. Este tipo de análisis busca identificar tendencias o
 asociaciones sin formular todavía un modelo predictivo o inferir
 causalidad.</p>
 </div>
-<div id="section-2" class="section level3">
-<h3>3)</h3>
+<div id="dado-un-registro-de-peticiones-a-un-sitio-web-vemos-que-las-peticiones-que-provienen-de-una-red-de-telefonía-concreta-acostumbran-a-ser-incorrectas-y-provocarnos-errores-de-servicio.-podemos-determinar-si-en-el-futuro-los-próximos-mensajes-de-esa-red-seguirán-dando-problemas-hemos-notado-el-mismo-efecto-en-otras-redes-de-telefonía" class="section level3">
+<h3>3) Dado un registro de peticiones a un sitio web, vemos que las
+peticiones que provienen de una red de telefonía concreta acostumbran a
+ser incorrectas y provocarnos errores de servicio. ¿Podemos determinar
+si en el futuro, los próximos mensajes de esa red seguirán dando
+problemas? ¿Hemos notado el mismo efecto en otras redes de
+telefonía?</h3>
 <p><strong>Clasificación:</strong> Predictiva.</p>
 <p><strong>Justificación:</strong><br />
 La pregunta pretende determinar si las peticiones futuras provenientes
@@ -388,8 +399,12 @@ comportamiento podría aparecer también en otras redes. Por lo tanto, el
 objetivo es anticipar eventos futuros a partir de patrones detectados en
 datos históricos, lo cual corresponde a un análisis predictivo.</p>
 </div>
-<div id="section-3" class="section level3">
-<h3>4)</h3>
+<div id="dado-los-registros-de-usuarios-de-un-servicio-de-compras-por-internet-los-usuarios-pueden-agruparse-por-preferencias-de-productos-comprados.-queremos-saber-si-es-posible-que-dado-un-usuario-al-azar-y-según-su-historial-pueda-ser-directamente-asignado-a-un-o-diversos-grupos" class="section level3">
+<h3>4) Dado los registros de usuarios de un servicio de compras por
+internet, los usuarios pueden agruparse por preferencias de productos
+comprados. Queremos saber si ¿Es posible que, dado un usuario al azar y
+según su historial, pueda ser directamente asignado a un o diversos
+grupos?</h3>
 <p><strong>Clasificación:</strong> Predictiva.</p>
 <p><strong>Justificación:</strong><br />
 Se busca determinar si un usuario puede ser asignado a uno o varios
@@ -397,7 +412,6 @@ grupos basándose en su historial de compras. Este tipo de problema
 corresponde a una tarea de clasificación, donde el sistema utiliza datos
 existentes para predecir a qué grupo pertenece una nueva
 observación.</p>
-</div>
 </div>
 <div id="pregunta-2" class="section level2">
 <h2>Pregunta 2</h2>
@@ -518,6 +532,158 @@ claro que incluya:</p>
 <li>metodología aplicada</li>
 <li>gráficos y tablas con los resultados obtenidos</li>
 </ul>
+</div>
+</div>
+</div>
+<div id="parte-2" class="section level1">
+<h1>PARTE 2</h1>
+<pre class="r"><code>library(readr)
+
+epa_http &lt;- read_table(&quot;epa-http.csv&quot;, col_names = FALSE)</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   X1 = col_character(),
+##   X2 = col_character(),
+##   X3 = col_character(),
+##   X4 = col_character(),
+##   X5 = col_character(),
+##   X6 = col_double(),
+##   X7 = col_character()
+## )</code></pre>
+<pre><code>## Warning: 21 parsing failures.
+##  row col  expected    actual           file
+## 7527  -- 7 columns 6 columns &#39;epa-http.csv&#39;
+## 7528  -- 7 columns 6 columns &#39;epa-http.csv&#39;
+## 7529  -- 7 columns 6 columns &#39;epa-http.csv&#39;
+## 7549  -- 7 columns 6 columns &#39;epa-http.csv&#39;
+## 7550  -- 7 columns 6 columns &#39;epa-http.csv&#39;
+## .... ... ......... ......... ..............
+## See problems(...) for more details.</code></pre>
+<div id="pregunta-1" class="section level2">
+<h2>Pregunta 1</h2>
+<div id="cuales-son-las-dimensiones-del-dataset-cargado-número-de-filas-y-columnas" class="section level3">
+<h3>Cuales son las dimensiones del dataset cargado (número de filas y
+columnas)</h3>
+<pre class="r"><code>dim(epa_http)</code></pre>
+<pre><code>## [1] 47748     7</code></pre>
+</div>
+<div id="valor-medio-de-la-columna-bytes" class="section level3">
+<h3>Valor medio de la columna Bytes</h3>
+<p>El valor medio de la columna Bytes se calculó excluyendo los valores
+faltantes (representados como “-”). El resultado obtenido es</p>
+<pre class="r"><code>mean(as.numeric(ifelse(epa_http$X7 == &quot;-&quot;, NA, epa_http$X7)), na.rm = TRUE)</code></pre>
+<pre><code>## [1] 7352.335</code></pre>
+</div>
+</div>
+<div id="pregunta-2-1" class="section level2">
+<h2>Pregunta 2</h2>
+<div id="de-las-diferentes-ips-de-origen-accediendo-al-servidor-cuantas-pertenecen-a-una-ip-claramente-educativa-que-contenga-.edu" class="section level3">
+<h3>De las diferentes IPs de origen accediendo al servidor, ¿cuantas
+pertenecen a una IP claramente educativa (que contenga “.edu”)?</h3>
+<p>Rpta: Se identificaron</p>
+<pre class="r"><code>length(unique(epa_http$X1[grepl(&quot;\\.edu$&quot;, epa_http$X1)]))</code></pre>
+<pre><code>## [1] 361</code></pre>
+<p>No se han considerado las peticiones repetidas, ya que un mismo host
+puede realizar múltiples accesos al servidor, y el objetivo es
+contabilizar únicamente las IPs de origen distintas.</p>
+<pre><code>1.  grepl(&quot;\\.edu$&quot;, epa_http$X1)</code></pre>
+</div>
+</div>
+<div id="pregunta-3" class="section level2">
+<h2>Pregunta 3</h2>
+<div id="de-todas-las-peticiones-recibidas-por-el-servidor-cual-es-la-hora-en-la-que-hay-mayor-volumen-de-peticiones-http-de-tipo-get" class="section level3">
+<h3>De todas las peticiones recibidas por el servidor cual es la hora en
+la que hay mayor volumen de peticiones HTTP de tipo “GET”?</h3>
+<p>Para el análisis de la hora con mayor volumen de peticiones, no se
+consideró únicamente la hora de forma aislada, ya que las peticiones se
+distribuyen en distintos días.</p>
+<p>En su lugar, se combinó el día y la hora para evitar la agregación
+incorrecta de eventos ocurridos en días diferentes. Esto permite
+identificar correctamente los periodos de mayor actividad dentro del
+dataset.</p>
+<pre class="r"><code>tiempo &lt;- gsub(&quot;\\[|\\]&quot;, &quot;&quot;, epa_http$X2)
+partes &lt;- strsplit(tiempo, &quot;:&quot;)
+
+dia &lt;- sapply(partes, function(x) x[1])
+hora &lt;- sapply(partes, function(x) x[2])
+
+dia_hora &lt;- paste(dia, hora, sep = &quot;-&quot;)</code></pre>
+<pre class="r"><code>tabla &lt;- table(dia_hora[epa_http$X3 == &quot;\&quot;GET&quot;])
+names(tabla)[which.max(tabla)]</code></pre>
+<pre><code>## [1] &quot;30-14&quot;</code></pre>
+<p>El mayor volumen de peticiones HTTP de tipo GET se registró el
+día</p>
+<pre class="r"><code>strsplit(names(tabla)[which.max(tabla)], &quot;-&quot;)[[1]][1]</code></pre>
+<pre><code>## [1] &quot;30&quot;</code></pre>
+<p>A las</p>
+<pre class="r"><code>strsplit(names(tabla)[which.max(tabla)], &quot;-&quot;)[[1]][2]</code></pre>
+<pre><code>## [1] &quot;14&quot;</code></pre>
+<p>Y el numero maximo de peticiones fue</p>
+<pre class="r"><code>max(tabla)</code></pre>
+<pre><code>## [1] 4546</code></pre>
+</div>
+</div>
+<div id="pregunta-4" class="section level2">
+<h2>Pregunta 4</h2>
+<div id="de-las-peticiones-hechas-por-instituciones-educativas-.edu-cuantos-bytes-en-total-se-han-transmitido-en-peticiones-de-descarga-de-ficheros-de-texto-.txt" class="section level3">
+<h3>De las peticiones hechas por instituciones educativas (.edu),
+¿Cuantos bytes en total se han transmitido, en peticiones de descarga de
+ficheros de texto “.txt”?</h3>
+<p>El total de bytes transmitidos en peticiones de descarga de archivos
+.txt realizadas por instituciones educativas (.edu) es de r
+sum(as.numeric(ifelse(epa_http<span class="math inline">\(X7 ==
+&quot;-&quot;, NA, epa_http\)</span>X7))[grepl(“\.edu<span class="math inline">\(&quot;, epa_http\)</span>X1) &amp;
+grepl(”\.txt<span class="math inline">\(&quot;, epa_http\)</span>X4)],
+na.rm = TRUE) bytes.</p>
+<p>Para este cálculo se consideraron únicamente las peticiones cuyo host
+termina en .edu y cuyo recurso solicitado termina en .txt. Además, se
+excluyeron los valores faltantes (“-”) de la columna bytes, ya que no
+representan valores numéricos válidos.</p>
+<pre class="r"><code>sum(
+  as.numeric(ifelse(epa_http$X7 == &quot;-&quot;, NA, epa_http$X7))[
+    grepl(&quot;\\.edu$&quot;, epa_http$X1) &amp; grepl(&quot;\\.txt$&quot;, epa_http$X4)
+  ],
+  na.rm = TRUE
+)</code></pre>
+<pre><code>## [1] 106806</code></pre>
+</div>
+</div>
+<div id="pregunta-5" class="section level2">
+<h2>Pregunta 5</h2>
+<div id="si-separamos-la-petición-en-3-partes-tipo-url-protocolo-usando-str_split-y-el-separador-espacio-cuantas-peticiones-buscan-directamente-la-url" class="section level3">
+<h3>Si separamos la petición en 3 partes (Tipo, URL, Protocolo), usando
+str_split y el separador ” ” (espacio), ¿cuantas peticiones buscan
+directamente la URL = “/”?</h3>
+<p>Se separó la petición en sus tres componentes (método, URL y
+protocolo) utilizando strsplit con separador espacio. Se identificaron r
+sum(sapply(strsplit(as.character(epa_http$X3), ” “), function(x) x[2])
+==”/“, na.rm = TRUE) peticiones cuya URL es exactamente /, lo que
+corresponde a accesos directos a la raíz del servidor.</p>
+<pre class="r"><code>sum(
+  sapply(strsplit(as.character(epa_http$X3), &quot; &quot;), function(x) x[2]) == &quot;/&quot;,
+  na.rm = TRUE
+)</code></pre>
+<pre><code>## [1] 0</code></pre>
+</div>
+</div>
+<div id="pregunta-6" class="section level2">
+<h2>Pregunta 6</h2>
+<div id="aprovechando-que-hemos-separado-la-petición-en-3-partes-tipo-url-protocolo-cuantas-peticiones-no-tienen-como-protocolo-http0.2" class="section level3">
+<h3>Aprovechando que hemos separado la petición en 3 partes (Tipo, URL,
+Protocolo) ¿Cuantas peticiones NO tienen como protocolo “HTTP/0.2”?</h3>
+<p>Se identificaron r sum(gsub(’“’,”“, epa_http$X5) !=”HTTP/0.2”, na.rm
+= TRUE) peticiones cuyo protocolo es distinto de HTTP/0.2. Para ello se
+utilizó la columna de protocolo previamente separada, eliminando
+posibles comillas para asegurar una comparación correcta.</p>
+<pre class="r"><code>protocolo &lt;- gsub(&#39;&quot;&#39;, &quot;&quot;, epa_http$X5)
+
+sum(protocolo != &quot;HTTP/0.2&quot;, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 47747</code></pre>
+<pre class="r"><code>table(protocolo)</code></pre>
+<pre><code>## protocolo
+## HTTP/0.2 HTTP/1.0 
+##        1    47747</code></pre>
 </div>
 </div>
 </div>
